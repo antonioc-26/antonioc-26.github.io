@@ -1,0 +1,527 @@
+<!--
+===============================================================================
+Author: Antonio Corona
+Date: 2026-03-15
+===============================================================================
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Antonio Corona Montes De Oca | Portfolio</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --card: #1f2937;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 18px 40px rgba(0,0,0,0.28);
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #0b1120 0%, #111827 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 5rem 0 3.5rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .panel,
+    .project-card,
+    .skill-card,
+    .contact-card {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main,
+    .hero-side,
+    .section {
+      padding: 1.5rem;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 0.9rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 { margin-top: 0; }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.08;
+      margin-bottom: 0.8rem;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 62ch;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0.8rem 1.1rem;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #082f49;
+    }
+
+    .btn-secondary {
+      border-color: var(--border);
+      color: var(--text);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .stat-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .stat {
+      padding: 1rem;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-value {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    main {
+      padding-bottom: 4rem;
+    }
+
+    .section-wrap {
+      margin-top: 1.5rem;
+    }
+
+    .section-header {
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      margin: 0.35rem 0 0;
+    }
+
+    .projects-grid,
+    .skills-grid,
+    .contact-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .projects-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .skills-grid,
+    .contact-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .project-card,
+    .skill-card,
+    .contact-card {
+      padding: 1.25rem;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 0.9rem;
+    }
+
+    .tag {
+      padding: 0.38rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: #bae6fd;
+      font-size: 0.82rem;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .project-links,
+    .contact-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .mini-link {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .mini-link:hover,
+    .mini-link:focus-visible {
+      opacity: 0.85;
+    }
+
+    .resume-note {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 0.8rem;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      padding: 1.25rem 0 2.25rem;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .projects-grid,
+      .skills-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 3.5rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        gap: 0.8rem;
+      }
+
+      .hero-main,
+      .hero-side,
+      .section,
+      .project-card,
+      .skill-card,
+      .contact-card {
+        padding: 1.15rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top">Antonio Corona</a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-grid">
+        <div class="panel hero-main">
+          <span class="eyebrow">Software Developer Portfolio</span>
+          <h1 id="hero-title">Antonio Corona Montes De Oca</h1>
+          <p class="lead">
+            Computer Science student graduating in May 2026, focused on software engineering,
+            full-stack development, algorithms, operating systems, and database-driven applications.
+          </p>
+          <p class="lead">
+            I build practical, polished software projects that combine clean interfaces,
+            strong logic, and real-world usability.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="https://github.com/antonioc-26" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn btn-secondary" href="https://www.linkedin.com/in/antonio-corona-montes-de-oca/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn btn-secondary" href="mailto:antoniocmdo26@gmail.com">Email Me</a>
+          </div>
+        </div>
+
+        <aside class="panel hero-side" aria-label="Quick facts">
+          <div class="stat-list">
+            <div class="stat">
+              <div class="stat-label">Education</div>
+              <div class="stat-value">B.S. in Computer Science with Business Diploma</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Graduation</div>
+              <div class="stat-value">May 9, 2026</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Core Tools</div>
+              <div class="stat-value">Python, JavaScript, Flask, Node.js, Express, MongoDB</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Looking For</div>
+              <div class="stat-value">Entry-level software, web, backend, or full-stack roles</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="section-wrap">
+      <div class="panel section">
+        <div class="section-header">
+          <h2>About Me</h2>
+          <p>
+            I am a Millersville University Computer Science student with coursework in software engineering,
+            artificial intelligence, programming languages, database systems, web application development,
+            data structures, operating systems, and data analytics & visualization.
+          </p>
+        </div>
+        <p>
+          I enjoy building applications that solve real problems, whether that means creating a constraint-based
+          scheduler, a full-stack e-commerce platform, or smaller polished tools that improve everyday workflows.
+        </p>
+      </div>
+    </section>
+
+    <section id="projects" class="section-wrap">
+      <div class="section-header">
+        <h2>Featured Projects</h2>
+        <p>These projects highlight software engineering, web development, UI work, and practical problem solving.</p>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card">
+          <h3>Maverick Course Scheduler</h3>
+          <p>
+            A constraint-based academic scheduling system built with Python, Z3, and Flask.
+            It includes optimization rules, schedule generation, and tools for viewing results.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Python</span>
+            <span class="tag">Z3</span>
+            <span class="tag">Flask</span>
+            <span class="tag">Scheduling</span>
+          </div>
+          <div class="project-links">
+            <a class="mini-link" href="https://github.com/mucsci-students/2026sp-420-Maverick" target="_blank" rel="noreferrer">View Repository</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <h3>X-Industries / Amazon 2.0</h3>
+          <p>
+            A full-stack e-commerce style application with product browsing, authentication,
+            cart functionality, order management, and database-backed data flow.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Node.js</span>
+            <span class="tag">Express</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">REST API</span>
+          </div>
+          <div class="project-links">
+            <a class="mini-link" href="https://github.com/antonioc-26/X-Industries" target="_blank" rel="noreferrer">View Repository</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <h3>Web Games Collection</h3>
+          <p>
+            A browser-based collection of JavaScript games including Rock Paper Scissors Lizard Spock,
+            Memory, and Nine Men's Morris, designed to showcase UI interactivity and game logic.
+          </p>
+          <div class="tag-row">
+            <span class="tag">JavaScript</span>
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">UI</span>
+          </div>
+          <div class="project-links">
+            <a class="mini-link" href="https://github.com/antonioc-26/Web-Games" target="_blank" rel="noreferrer">View Repository</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <h3>Job Tracker</h3>
+          <p>
+            A lightweight application for organizing job applications with CRUD functionality,
+            filtering, dashboard counts, status badges, and localStorage persistence.
+          </p>
+          <div class="tag-row">
+            <span class="tag">JavaScript</span>
+            <span class="tag">localStorage</span>
+            <span class="tag">CRUD</span>
+            <span class="tag">Portfolio Project</span>
+          </div>
+          <div class="project-links">
+            <a class="mini-link" href="https://github.com/antonioc-26/Job-Tracker" target="_blank" rel="noreferrer">View Repository</a>
+            <a class="mini-link" href="https://antonioc-26.github.io/Job-Tracker/" target="_blank" rel="noreferrer">Live Demo</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="section-wrap">
+      <div class="section-header">
+        <h2>Technical Skills</h2>
+        <p>A focused stack for entry-level software, web, backend, and full-stack roles.</p>
+      </div>
+      <div class="skills-grid">
+        <article class="skill-card">
+          <h3>Languages</h3>
+          <p>Python, JavaScript, Java, C++, SQL, C, OCaml</p>
+        </article>
+        <article class="skill-card">
+          <h3>Frameworks & Tools</h3>
+          <p>Flask, Node.js, Express, Git</p>
+        </article>
+        <article class="skill-card">
+          <h3>Databases & Concepts</h3>
+          <p>PostgreSQL, MongoDB, REST APIs, algorithms, OOP, testing, distributed systems basics</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section-wrap">
+      <div class="section-header">
+        <h2>Contact</h2>
+        <p>Reach out for entry-level software opportunities, project discussions, or networking.</p>
+      </div>
+      <div class="contact-grid">
+        <article class="contact-card">
+          <h3>Email</h3>
+          <div class="contact-links">
+            <a class="mini-link" href="mailto:antoniocmdo26@gmail.com">antoniocmdo26@gmail.com</a>
+          </div>
+        </article>
+        <article class="contact-card">
+          <h3>GitHub</h3>
+          <div class="contact-links">
+            <a class="mini-link" href="https://github.com/antonioc-26" target="_blank" rel="noreferrer">github.com/antonioc-26</a>
+          </div>
+        </article>
+        <article class="contact-card">
+          <h3>LinkedIn</h3>
+          <div class="contact-links">
+            <a class="mini-link" href="https://www.linkedin.com/in/antonio-corona-montes-de-oca/" target="_blank" rel="noreferrer">linkedin.com/in/antonio-corona-montes-de-oca</a>
+          </div>
+        </article>
+      </div>
+      <p class="resume-note">Tip: add a PDF resume file to this repo and link it near the hero buttons for an even stronger recruiter experience.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Antonio Corona Montes De Oca. Built as a static portfolio site for GitHub Pages.
+    </div>
+  </footer>
+</body>
+</html>
