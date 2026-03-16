@@ -1,7 +1,33 @@
 <!--
 ===============================================================================
-Author: Antonio Corona
-Date: 2026-03-15
+Author: Antonio Corona Montes De Oca
+Date: 2026-03-16
+Project: Personal Portfolio Website
+File: index.html
+
+Description:
+This file defines a single-page personal portfolio website designed for GitHub
+Pages deployment. The site presents Antonio's professional summary, featured
+projects, technical skills, resume access, project screenshots, live demo links,
+and contact information in a clean recruiter-friendly format.
+
+Feature Breakdown:
+1. Sticky navigation bar for quick section access
+2. Hero section with headline, summary, and primary action buttons
+3. Quick facts panel highlighting education, graduation, tools, and job target
+4. About section summarizing academic background and development interests
+5. Featured projects section with screenshots, descriptions, key features, tags,
+   repository links, and live demo links
+6. Technical skills section organized by category
+7. Contact section with direct access to email, GitHub, and LinkedIn
+8. Footer for closing site attribution
+9. Active navigation highlighting based on scroll position
+10. Responsive layout and hover effects for a more polished user experience
+
+Technologies Used:
+HTML5 – page structure and semantic layout
+CSS3 – styling, layout, spacing, responsiveness, animations, and visual design
+JavaScript – active navigation highlighting and interactive page behavior
 ===============================================================================
 -->
 
@@ -10,8 +36,21 @@ Date: 2026-03-15
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Antonio Corona Montes De Oca | Portfolio</title>
+
+  <!-- Browser tab title -->
+  <title>Antonio Corona Montes De Oca | Software Developer Portfolio</title>
+  
+  <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+  
   <style>
+    /*
+    ===============================================================================
+    FEATURE 1: DESIGN TOKENS / THEME VARIABLES
+    -------------------------------------------------------------------------------
+    Centralized color, spacing, width, border, and shadow values used throughout
+    the page for consistent styling.
+    ===============================================================================
+    */
     :root {
       --bg: #0f172a;
       --panel: #111827;
@@ -25,28 +64,48 @@ Date: 2026-03-15
       --max: 1120px;
     }
 
+    /* Global box model reset */
     * { box-sizing: border-box; }
 
+    /* Enables smooth scrolling for navigation anchor links */
     html { scroll-behavior: smooth; }
 
+    /*
+    ===============================================================================
+    FEATURE 2: GLOBAL PAGE STYLING
+    -------------------------------------------------------------------------------
+    Establishes overall typography, page background, text color, and line spacing.
+    ===============================================================================
+    */
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
+
       background: linear-gradient(180deg, #0b1120 0%, #111827 100%);
       color: var(--text);
       line-height: 1.6;
     }
 
+    /* Removes default underline and keeps links inheriting section text color */
     a {
       color: inherit;
       text-decoration: none;
     }
 
+    /* Shared width constraint for centered content areas */
     .container {
       width: min(var(--max), calc(100% - 2rem));
       margin: 0 auto;
     }
 
+    /*
+    ===============================================================================
+    FEATURE 3: STICKY NAVIGATION BAR
+    -------------------------------------------------------------------------------
+    Keeps the main navigation visible while scrolling and provides quick anchor
+    links to the portfolio sections.
+    ===============================================================================
+    */
     .site-header {
       position: sticky;
       top: 0;
@@ -64,11 +123,13 @@ Date: 2026-03-15
       padding: 1rem 0;
     }
 
+    /* Portfolio name displayed on the left side of the navbar */
     .brand {
       font-weight: 700;
       letter-spacing: 0.02em;
     }
 
+    /* Horizontal navigation links for section jumping */
     .nav-links {
       display: flex;
       gap: 1rem;
@@ -85,6 +146,25 @@ Date: 2026-03-15
       color: var(--text);
     }
 
+    .nav-link {
+    transition: color 0.2s ease, border-color 0.2s ease;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 4px;
+    }
+
+    .nav-link.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    }
+
+    /*
+    ===============================================================================
+    FEATURE 4: HERO SECTION + QUICK FACTS PANEL
+    -------------------------------------------------------------------------------
+    The hero introduces Antonio, summarizes his focus, and presents primary calls
+    to action. A side panel highlights quick recruiter-friendly facts.
+    ===============================================================================
+    */
     .hero {
       padding: 5rem 0 3.5rem;
     }
@@ -96,22 +176,26 @@ Date: 2026-03-15
       align-items: stretch;
     }
 
+    /* Shared card-like styling reused across major panels and content cards */
     .panel,
     .project-card,
     .skill-card,
-    .contact-card {
+    .contact-card,
+    .project-shot {
       background: rgba(17, 24, 39, 0.92);
       border: 1px solid var(--border);
       border-radius: 20px;
       box-shadow: var(--shadow);
     }
 
+    /* Shared padding for hero panels and general section panels */
     .hero-main,
     .hero-side,
     .section {
       padding: 1.5rem;
     }
 
+    /* Small badge-like label above the main hero heading */
     .eyebrow {
       display: inline-block;
       margin-bottom: 0.9rem;
@@ -125,20 +209,24 @@ Date: 2026-03-15
       text-transform: uppercase;
     }
 
+    /* Shared heading spacing reset */
     h1, h2, h3 { margin-top: 0; }
 
+    /* Main hero heading styling */
     h1 {
       font-size: clamp(2.2rem, 5vw, 3.8rem);
       line-height: 1.08;
       margin-bottom: 0.8rem;
     }
 
+    /* Supporting paragraph text used in the hero area */
     .lead {
       color: var(--muted);
       font-size: 1.08rem;
       max-width: 62ch;
     }
 
+    /* Button row beneath the hero summary */
     .cta-row {
       display: flex;
       gap: 0.9rem;
@@ -146,6 +234,7 @@ Date: 2026-03-15
       margin-top: 1.5rem;
     }
 
+    /* Base button styling reused for all call-to-action links */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -163,17 +252,20 @@ Date: 2026-03-15
       transform: translateY(-2px);
     }
 
+    /* Primary action button styling */
     .btn-primary {
       background: var(--accent);
       color: #082f49;
     }
 
+    /* Secondary action button styling */
     .btn-secondary {
       border-color: var(--border);
       color: var(--text);
       background: rgba(255,255,255,0.03);
     }
 
+    /* Right-side quick facts list */
     .stat-list {
       display: grid;
       gap: 1rem;
@@ -197,14 +289,17 @@ Date: 2026-03-15
       font-weight: 700;
     }
 
+    /* Adds spacing beneath the main page content before the footer */
     main {
       padding-bottom: 4rem;
     }
 
+    /* Shared top spacing between stacked sections */
     .section-wrap {
       margin-top: 1.5rem;
     }
 
+    /* Shared styling for section introductions */
     .section-header {
       margin-bottom: 1rem;
     }
@@ -214,6 +309,13 @@ Date: 2026-03-15
       margin: 0.35rem 0 0;
     }
 
+    /*
+    ===============================================================================
+    FEATURE 5: GRID-BASED CONTENT LAYOUTS
+    -------------------------------------------------------------------------------
+    Reusable grids for projects, skill cards, and contact cards.
+    ===============================================================================
+    */
     .projects-grid,
     .skills-grid,
     .contact-grid {
@@ -230,12 +332,67 @@ Date: 2026-03-15
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    /* Shared padding for content cards */
     .project-card,
     .skill-card,
     .contact-card {
       padding: 1.25rem;
     }
 
+    /*
+    -------------------------------------------------------------------------------
+    PROJECT CARD HOVER EFFECT
+    -------------------------------------------------------------------------------
+    Adds a subtle lift and stronger shadow when hovering over a project card.
+    This improves interactivity and makes the UI feel more polished and modern.
+    -------------------------------------------------------------------------------
+    */
+    .project-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 50px rgba(0,0,0,0.35);
+    }
+    
+    /*
+    ===============================================================================
+    FEATURE 6: PROJECT CARD MEDIA PREVIEW
+    -------------------------------------------------------------------------------
+    Each featured project can display a screenshot at the top of its card.
+    A placeholder fallback message is shown if an image has not been added yet.
+    ===============================================================================
+    */
+    .project-shot {
+      margin-bottom: 1rem;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    .project-shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+
+    /* Smooth zoom animation */
+    transition: transform 0.25s ease;
+    }
+
+    /* Slight zoom when hovering over the image */
+    .project-shot:hover img {
+    transform: scale(1.05);
+    }
+
+    /* Skill/technology tags shown on project cards */
     .tag-row {
       display: flex;
       flex-wrap: wrap;
@@ -252,6 +409,7 @@ Date: 2026-03-15
       border: 1px solid rgba(56, 189, 248, 0.2);
     }
 
+    /* Link rows used inside project cards and contact cards */
     .project-links,
     .contact-links {
       display: flex;
@@ -270,12 +428,20 @@ Date: 2026-03-15
       opacity: 0.85;
     }
 
+    /* Small informational note below the contact section */
     .resume-note {
       color: var(--muted);
       font-size: 0.95rem;
       margin-top: 0.8rem;
     }
 
+    /*
+    ===============================================================================
+    FEATURE 7: FOOTER
+    -------------------------------------------------------------------------------
+    Simple closing area for attribution and site purpose.
+    ===============================================================================
+    */
     .site-footer {
       border-top: 1px solid var(--border);
       color: var(--muted);
@@ -283,6 +449,13 @@ Date: 2026-03-15
       font-size: 0.95rem;
     }
 
+    /*
+    ===============================================================================
+    FEATURE 8: RESPONSIVE DESIGN
+    -------------------------------------------------------------------------------
+    Adjusts layout and spacing for tablet and mobile screen sizes.
+    ===============================================================================
+    */
     @media (max-width: 900px) {
       .hero-grid,
       .projects-grid,
@@ -318,19 +491,34 @@ Date: 2026-03-15
   </style>
 </head>
 <body>
+  <!--
+  ===============================================================================
+  FEATURE 3: STICKY NAVIGATION BAR
+  -------------------------------------------------------------------------------
+  Provides site identity and quick in-page navigation to key portfolio sections.
+  ===============================================================================
+  -->
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="#top">Antonio Corona</a>
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#skills">Skills</a>
+        <a class="nav-link" href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
   <main id="top" class="container">
+    <!--
+    ===============================================================================
+    FEATURE 4A: HERO SECTION
+    -------------------------------------------------------------------------------
+    Introduces Antonio, summarizes his professional focus, and provides primary
+    links for recruiters and visitors.
+    ===============================================================================
+    -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-grid">
         <div class="panel hero-main">
@@ -344,13 +532,20 @@ Date: 2026-03-15
             I build practical, polished software projects that combine clean interfaces,
             strong logic, and real-world usability.
           </p>
+
+          <!-- Primary recruiter-facing action buttons -->
           <div class="cta-row">
             <a class="btn btn-primary" href="https://github.com/antonioc-26" target="_blank" rel="noreferrer">GitHub</a>
             <a class="btn btn-secondary" href="https://www.linkedin.com/in/antonio-corona-montes-de-oca/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn btn-secondary" href="resume/Antonio_Corona_Resume.pdf" target="_blank" rel="noreferrer">View Resume</a>
             <a class="btn btn-secondary" href="mailto:antoniocmdo26@gmail.com">Email Me</a>
           </div>
         </div>
 
+        <!--
+        FEATURE 4B: QUICK FACTS PANEL
+        A concise summary of education, graduation date, tools, and target role.
+        -->
         <aside class="panel hero-side" aria-label="Quick facts">
           <div class="stat-list">
             <div class="stat">
@@ -374,6 +569,14 @@ Date: 2026-03-15
       </div>
     </section>
 
+    <!--
+    ===============================================================================
+    FEATURE 5A: ABOUT SECTION
+    -------------------------------------------------------------------------------
+    Gives visitors a short background summary of Antonio's academic preparation
+    and software-building interests.
+    ===============================================================================
+    -->
     <section id="about" class="section-wrap">
       <div class="panel section">
         <div class="section-header">
@@ -391,18 +594,32 @@ Date: 2026-03-15
       </div>
     </section>
 
+    <!--
+    ===============================================================================
+    FEATURE 5B: FEATURED PROJECTS SECTION
+    -------------------------------------------------------------------------------
+    Highlights Antonio's strongest portfolio projects. Each project card includes
+    an image area, summary, technology tags, and relevant links.
+    ===============================================================================
+    -->
     <section id="projects" class="section-wrap">
       <div class="section-header">
         <h2>Featured Projects</h2>
         <p>These projects highlight software engineering, web development, UI work, and practical problem solving.</p>
       </div>
+
       <div class="projects-grid">
+        <!-- Project Card: Maverick Scheduler -->
         <article class="project-card">
+          <div class="project-shot">
+            <img src="images/maverick-scheduler.jpg" alt="Screenshot of the Maverick Course Scheduler project" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'project-shot', textContent:'Add images/maverick-scheduler.jpg'}))">
+          </div>
           <h3>Maverick Course Scheduler</h3>
           <p>
             A constraint-based academic scheduling system built with Python, Z3, and Flask.
             It includes optimization rules, schedule generation, and tools for viewing results.
           </p>
+          <p><strong>Key features:</strong> Constraint solving, schedule generation, optimization rules, schedule viewing</p>
           <div class="tag-row">
             <span class="tag">Python</span>
             <span class="tag">Z3</span>
@@ -414,12 +631,17 @@ Date: 2026-03-15
           </div>
         </article>
 
+        <!-- Project Card: X-Industries / Amazon 2.0 -->
         <article class="project-card">
+          <div class="project-shot">
+            <img src="images/x-industries.jpg" alt="Screenshot of the X-Industries e-commerce project" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'project-shot', textContent:'Add images/x-industries.jpg'}))">
+          </div>          
           <h3>X-Industries / Amazon 2.0</h3>
           <p>
             A full-stack e-commerce style application with product browsing, authentication,
             cart functionality, order management, and database-backed data flow.
           </p>
+          <p><strong>Key features:</strong> Authentication, product browsing, cart management, order workflow</p>
           <div class="tag-row">
             <span class="tag">Node.js</span>
             <span class="tag">Express</span>
@@ -431,12 +653,19 @@ Date: 2026-03-15
           </div>
         </article>
 
+        <!-- Project Card: Web Games Collection -->
         <article class="project-card">
+          <div class="project-shot">
+            <a href="https://antonioc-26.github.io/Web-Games/" target="_blank">
+            <img src="images/web-games.jpg" alt="Screenshot of the Web Games Collection project" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'project-shot', textContent:'Add images/web-games.jpg'}))">
+            </a>
+          </div>
           <h3>Web Games Collection</h3>
           <p>
             A browser-based collection of JavaScript games including Rock Paper Scissors Lizard Spock,
             Memory, and Nine Men's Morris, designed to showcase UI interactivity and game logic.
           </p>
+          <p><strong>Key features:</strong> Interactive gameplay, DOM manipulation, game state logic, polished UI</p>
           <div class="tag-row">
             <span class="tag">JavaScript</span>
             <span class="tag">HTML</span>
@@ -445,15 +674,23 @@ Date: 2026-03-15
           </div>
           <div class="project-links">
             <a class="mini-link" href="https://github.com/antonioc-26/Web-Games" target="_blank" rel="noreferrer">View Repository</a>
+            <a class="mini-link" href="https://antonioc-26.github.io/Web-Games/" target="_blank" rel="noreferrer">Live Demo</a>   
           </div>
         </article>
 
+        <!-- Project Card: Job Tracker -->
         <article class="project-card">
+          <div class="project-shot">
+            <a href="https://antonioc-26.github.io/Job-Tracker/" target="_blank">
+            <img src="images/job-tracker.jpg" alt="Screenshot of the Job Tracker project" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'project-shot', textContent:'Add images/job-tracker.jpg'}))">
+            </a>
+          </div>
           <h3>Job Tracker</h3>
           <p>
             A lightweight application for organizing job applications with CRUD functionality,
             filtering, dashboard counts, status badges, and localStorage persistence.
           </p>
+          <p><strong>Key features:</strong> CRUD operations, filtering, dashboard stats, persistent local storage</p>
           <div class="tag-row">
             <span class="tag">JavaScript</span>
             <span class="tag">localStorage</span>
@@ -468,6 +705,14 @@ Date: 2026-03-15
       </div>
     </section>
 
+    <!--
+    ===============================================================================
+    FEATURE 5C: TECHNICAL SKILLS SECTION
+    -------------------------------------------------------------------------------
+    Organizes Antonio's technical background into readable categories for quick
+    recruiter scanning.
+    ===============================================================================
+    -->
     <section id="skills" class="section-wrap">
       <div class="section-header">
         <h2>Technical Skills</h2>
@@ -489,6 +734,14 @@ Date: 2026-03-15
       </div>
     </section>
 
+    <!--
+    ===============================================================================
+    FEATURE 5D: CONTACT SECTION
+    -------------------------------------------------------------------------------
+    Provides direct ways for recruiters, employers, and networking contacts to
+    reach Antonio or view his professional profiles.
+    ===============================================================================
+    -->
     <section id="contact" class="section-wrap">
       <div class="section-header">
         <h2>Contact</h2>
@@ -514,14 +767,110 @@ Date: 2026-03-15
           </div>
         </article>
       </div>
-      <p class="resume-note">Tip: add a PDF resume file to this repo and link it near the hero buttons for an even stronger recruiter experience.</p>
     </section>
   </main>
 
+  <!--
+  ===============================================================================
+  FEATURE 7: FOOTER
+  -------------------------------------------------------------------------------
+  Closing attribution area for the portfolio site.
+  ===============================================================================
+  -->
   <footer class="site-footer">
     <div class="container">
-      © 2026 Antonio Corona Montes De Oca. Built as a static portfolio site for GitHub Pages.
+      © 2026 Antonio Corona Montes De Oca  
+      Built with HTML, CSS, and GitHub Pages.
     </div>
   </footer>
+
+  <script>
+    /*
+    ===============================================================================
+    FEATURE 9: ACTIVE NAVIGATION HIGHLIGHTING
+    -------------------------------------------------------------------------------
+    This script updates the navigation bar to highlight the section currently being
+    viewed by the user.
+
+    Behavior:
+    - Uses a checkpoint positioned 40% down the viewport instead of the very top
+        of the page for more natural section detection
+    - Correctly handles smaller sections such as Skills and Contact
+    - Includes a bottom-of-page fallback so the last section can still activate
+        when the user scrolls to the end
+    ===============================================================================
+    */
+
+    /* Select all major sections that have an id attribute */
+    const sections = document.querySelectorAll("section[id]");
+
+    /* Select all navigation links that should receive the active state */
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    /*
+    -------------------------------------------------------------------------------
+    Updates the active navigation link based on scroll position
+    -------------------------------------------------------------------------------
+    A checkpoint is placed at 40% of the viewport height. Whichever section
+    contains that checkpoint becomes the active section.
+
+    This approach works better than checking the very top of the page because:
+    - It feels more natural while scrolling
+    - It handles shorter sections more reliably
+    - It improves activation near the bottom of the page
+    -------------------------------------------------------------------------------
+    */
+    function updateActiveNavLink() {
+        const checkpoint = window.scrollY + window.innerHeight * 0.4;
+        let currentSection = "";
+
+        sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionBottom = sectionTop + sectionHeight;
+
+        if (checkpoint >= sectionTop && checkpoint < sectionBottom) {
+            currentSection = section.getAttribute("id");
+        }
+        });
+
+        /*
+        ---------------------------------------------------------------------------
+        Bottom-of-page fallback
+        ---------------------------------------------------------------------------
+        Ensures that the final section becomes active when the user scrolls near the
+        bottom of the page, even if that section is too short to fully cross the
+        viewport checkpoint.
+        ---------------------------------------------------------------------------
+        */
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+        currentSection = sections[sections.length - 1].getAttribute("id");
+        }
+
+        /* Remove the active class from all nav links */
+        navLinks.forEach(link => {
+        link.classList.remove("active");
+
+        /* Add the active class only to the matching section link */
+        if (link.getAttribute("href") === `#${currentSection}`) {
+            link.classList.add("active");
+        }
+        });
+    }
+
+    /*
+    -------------------------------------------------------------------------------
+    Event listeners
+    -------------------------------------------------------------------------------
+    Recalculate the active nav state when:
+    - the page scrolls
+    - the page first loads
+    - the browser window is resized
+    -------------------------------------------------------------------------------
+    */
+    window.addEventListener("scroll", updateActiveNavLink);
+    window.addEventListener("load", updateActiveNavLink);
+    window.addEventListener("resize", updateActiveNavLink);
+  </script>
 </body>
 </html>
