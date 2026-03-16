@@ -323,6 +323,23 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
     }
 
     /*
+    -------------------------------------------------------------------------------
+    PROJECT CARD HOVER EFFECT
+    -------------------------------------------------------------------------------
+    Adds a subtle lift and stronger shadow when hovering over a project card.
+    This improves interactivity and makes the UI feel more polished and modern.
+    -------------------------------------------------------------------------------
+    */
+    .project-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 50px rgba(0,0,0,0.35);
+    }
+    
+    /*
     ===============================================================================
     FEATURE 6: PROJECT CARD MEDIA PREVIEW
     -------------------------------------------------------------------------------
@@ -614,7 +631,9 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
         <!-- Project Card: Web Games Collection -->
         <article class="project-card">
           <div class="project-shot">
+            <a href="https://antonioc-26.github.io/Web-Games/" target="_blank">
             <img src="images/web-games.jpg" alt="Screenshot of the Web Games Collection project" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'project-shot', textContent:'Add images/web-games.jpg'}))">
+            </a>
           </div>
           <h3>Web Games Collection</h3>
           <p>
@@ -637,7 +656,9 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
         <!-- Project Card: Job Tracker -->
         <article class="project-card">
           <div class="project-shot">
+            <a href="https://antonioc-26.github.io/Job-Tracker/" target="_blank">
             <img src="images/job-tracker.jpg" alt="Screenshot of the Job Tracker project" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'project-shot', textContent:'Add images/job-tracker.jpg'}))">
+            </a>
           </div>
           <h3>Job Tracker</h3>
           <p>
