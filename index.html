@@ -92,6 +92,14 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       margin: 0 auto;
     }
 
+    /*
+    ===============================================================================
+    FEATURE 3: STICKY NAVIGATION BAR
+    -------------------------------------------------------------------------------
+    Keeps the main navigation visible while scrolling and provides quick anchor
+    links to the portfolio sections.
+    ===============================================================================
+    */
     .site-header {
       position: sticky;
       top: 0;
@@ -109,11 +117,13 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       padding: 1rem 0;
     }
 
+    /* Portfolio name displayed on the left side of the navbar */
     .brand {
       font-weight: 700;
       letter-spacing: 0.02em;
     }
 
+    /* Horizontal navigation links for section jumping */
     .nav-links {
       display: flex;
       gap: 1rem;
@@ -130,6 +140,14 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       color: var(--text);
     }
 
+    /*
+    ===============================================================================
+    FEATURE 4: HERO SECTION + QUICK FACTS PANEL
+    -------------------------------------------------------------------------------
+    The hero introduces Antonio, summarizes his focus, and presents primary calls
+    to action. A side panel highlights quick recruiter-friendly facts.
+    ===============================================================================
+    */
     .hero {
       padding: 5rem 0 3.5rem;
     }
@@ -141,6 +159,7 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       align-items: stretch;
     }
 
+    /* Shared card-like styling reused across major panels and content cards */
     .panel,
     .project-card,
     .skill-card,
@@ -151,12 +170,14 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       box-shadow: var(--shadow);
     }
 
+    /* Shared padding for hero panels and general section panels */
     .hero-main,
     .hero-side,
     .section {
       padding: 1.5rem;
     }
 
+    /* Small badge-like label above the main hero heading */
     .eyebrow {
       display: inline-block;
       margin-bottom: 0.9rem;
@@ -170,20 +191,24 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       text-transform: uppercase;
     }
 
+    /* Shared heading spacing reset */
     h1, h2, h3 { margin-top: 0; }
 
+    /* Main hero heading styling */
     h1 {
       font-size: clamp(2.2rem, 5vw, 3.8rem);
       line-height: 1.08;
       margin-bottom: 0.8rem;
     }
 
+    /* Supporting paragraph text used in the hero area */
     .lead {
       color: var(--muted);
       font-size: 1.08rem;
       max-width: 62ch;
     }
 
+    /* Button row beneath the hero summary */
     .cta-row {
       display: flex;
       gap: 0.9rem;
@@ -191,6 +216,7 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       margin-top: 1.5rem;
     }
 
+    /* Base button styling reused for all call-to-action links */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -208,17 +234,20 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       transform: translateY(-2px);
     }
 
+    /* Primary action button styling */
     .btn-primary {
       background: var(--accent);
       color: #082f49;
     }
 
+    /* Secondary action button styling */
     .btn-secondary {
       border-color: var(--border);
       color: var(--text);
       background: rgba(255,255,255,0.03);
     }
 
+    /* Right-side quick facts list */
     .stat-list {
       display: grid;
       gap: 1rem;
@@ -242,14 +271,17 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       font-weight: 700;
     }
 
+    /* Adds spacing beneath the main page content before the footer */
     main {
       padding-bottom: 4rem;
     }
 
+    /* Shared top spacing between stacked sections */
     .section-wrap {
       margin-top: 1.5rem;
     }
 
+    /* Shared styling for section introductions */
     .section-header {
       margin-bottom: 1rem;
     }
