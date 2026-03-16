@@ -10,8 +10,19 @@ Date: 2026-03-15
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Browser tab title -->
   <title>Antonio Corona Montes De Oca | Portfolio</title>
+
   <style>
+    /*
+    ===============================================================================
+    FEATURE 1: DESIGN TOKENS / THEME VARIABLES
+    -------------------------------------------------------------------------------
+    Centralized color, spacing, width, border, and shadow values used throughout
+    the page for consistent styling.
+    ===============================================================================
+    */
     :root {
       --bg: #0f172a;
       --panel: #111827;
@@ -25,23 +36,35 @@ Date: 2026-03-15
       --max: 1120px;
     }
 
+    /* Global box model reset */
     * { box-sizing: border-box; }
 
+    /* Enables smooth scrolling for navigation anchor links */
     html { scroll-behavior: smooth; }
 
+    /*
+    ===============================================================================
+    FEATURE 2: GLOBAL PAGE STYLING
+    -------------------------------------------------------------------------------
+    Establishes overall typography, page background, text color, and line spacing.
+    ===============================================================================
+    */
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
+
       background: linear-gradient(180deg, #0b1120 0%, #111827 100%);
       color: var(--text);
       line-height: 1.6;
     }
 
+    /* Removes default underline and keeps links inheriting section text color */
     a {
       color: inherit;
       text-decoration: none;
     }
 
+    /* Shared width constraint for centered content areas */
     .container {
       width: min(var(--max), calc(100% - 2rem));
       margin: 0 auto;
