@@ -163,7 +163,8 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
     .panel,
     .project-card,
     .skill-card,
-    .contact-card {
+    .contact-card,
+    .project-shot {
       background: rgba(17, 24, 39, 0.92);
       border: 1px solid var(--border);
       border-radius: 20px;
@@ -291,6 +292,13 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       margin: 0.35rem 0 0;
     }
 
+    /*
+    ===============================================================================
+    FEATURE 5: GRID-BASED CONTENT LAYOUTS
+    -------------------------------------------------------------------------------
+    Reusable grids for projects, skill cards, and contact cards.
+    ===============================================================================
+    */
     .projects-grid,
     .skills-grid,
     .contact-grid {
@@ -307,12 +315,42 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    /* Shared padding for content cards */
     .project-card,
     .skill-card,
     .contact-card {
       padding: 1.25rem;
     }
 
+    /*
+    ===============================================================================
+    FEATURE 6: PROJECT CARD MEDIA PREVIEW
+    -------------------------------------------------------------------------------
+    Each featured project can display a screenshot at the top of its card.
+    A placeholder fallback message is shown if an image has not been added yet.
+    ===============================================================================
+    */
+    .project-shot {
+      margin-bottom: 1rem;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    .project-shot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Skill/technology tags shown on project cards */
     .tag-row {
       display: flex;
       flex-wrap: wrap;
@@ -329,6 +367,7 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       border: 1px solid rgba(56, 189, 248, 0.2);
     }
 
+    /* Link rows used inside project cards and contact cards */
     .project-links,
     .contact-links {
       display: flex;
@@ -347,12 +386,20 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       opacity: 0.85;
     }
 
+    /* Small informational note below the contact section */
     .resume-note {
       color: var(--muted);
       font-size: 0.95rem;
       margin-top: 0.8rem;
     }
 
+    /*
+    ===============================================================================
+    FEATURE 7: FOOTER
+    -------------------------------------------------------------------------------
+    Simple closing area for attribution and site purpose.
+    ===============================================================================
+    */
     .site-footer {
       border-top: 1px solid var(--border);
       color: var(--muted);
@@ -360,6 +407,13 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       font-size: 0.95rem;
     }
 
+    /*
+    ===============================================================================
+    FEATURE 8: RESPONSIVE DESIGN
+    -------------------------------------------------------------------------------
+    Adjusts layout and spacing for tablet and mobile screen sizes.
+    ===============================================================================
+    */
     @media (max-width: 900px) {
       .hero-grid,
       .projects-grid,
@@ -395,6 +449,13 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
   </style>
 </head>
 <body>
+  <!--
+  ===============================================================================
+  FEATURE 3: STICKY NAVIGATION BAR
+  -------------------------------------------------------------------------------
+  Provides site identity and quick in-page navigation to key portfolio sections.
+  ===============================================================================
+  -->
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="#top">Antonio Corona</a>
@@ -408,6 +469,14 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
   </header>
 
   <main id="top" class="container">
+    <!--
+    ===============================================================================
+    FEATURE 4A: HERO SECTION
+    -------------------------------------------------------------------------------
+    Introduces Antonio, summarizes his professional focus, and provides primary
+    links for recruiters and visitors.
+    ===============================================================================
+    -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-grid">
         <div class="panel hero-main">
@@ -421,13 +490,20 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
             I build practical, polished software projects that combine clean interfaces,
             strong logic, and real-world usability.
           </p>
+
+          <!-- Primary recruiter-facing action buttons -->
           <div class="cta-row">
             <a class="btn btn-primary" href="https://github.com/antonioc-26" target="_blank" rel="noreferrer">GitHub</a>
             <a class="btn btn-secondary" href="https://www.linkedin.com/in/antonio-corona-montes-de-oca/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn btn-secondary" href="resume/Antonio_Corona_Resume.pdf" target="_blank" rel="noreferrer">View Resume</a>
             <a class="btn btn-secondary" href="mailto:antoniocmdo26@gmail.com">Email Me</a>
           </div>
         </div>
 
+        <!--
+        FEATURE 4B: QUICK FACTS PANEL
+        A concise summary of education, graduation date, tools, and target role.
+        -->
         <aside class="panel hero-side" aria-label="Quick facts">
           <div class="stat-list">
             <div class="stat">
@@ -451,6 +527,14 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       </div>
     </section>
 
+    <!--
+    ===============================================================================
+    FEATURE 5A: ABOUT SECTION
+    -------------------------------------------------------------------------------
+    Gives visitors a short background summary of Antonio's academic preparation
+    and software-building interests.
+    ===============================================================================
+    -->
     <section id="about" class="section-wrap">
       <div class="panel section">
         <div class="section-header">
@@ -468,13 +552,26 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       </div>
     </section>
 
+    <!--
+    ===============================================================================
+    FEATURE 5B: FEATURED PROJECTS SECTION
+    -------------------------------------------------------------------------------
+    Highlights Antonio's strongest portfolio projects. Each project card includes
+    an image area, summary, technology tags, and relevant links.
+    ===============================================================================
+    -->
     <section id="projects" class="section-wrap">
       <div class="section-header">
         <h2>Featured Projects</h2>
         <p>These projects highlight software engineering, web development, UI work, and practical problem solving.</p>
       </div>
+
       <div class="projects-grid">
+        <!-- Project Card: Maverick Scheduler -->
         <article class="project-card">
+          <div class="project-shot">
+            <img src="images/maverick-scheduler.png" alt="Screenshot of the Maverick Course Scheduler project" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'project-shot', textContent:'Add images/maverick-scheduler.png'}))">
+          </div>
           <h3>Maverick Course Scheduler</h3>
           <p>
             A constraint-based academic scheduling system built with Python, Z3, and Flask.
@@ -491,7 +588,11 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
           </div>
         </article>
 
+        <!-- Project Card: X-Industries / Amazon 2.0 -->
         <article class="project-card">
+          <div class="project-shot">
+            <img src="images/x-industries.png" alt="Screenshot of the X-Industries e-commerce project" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'project-shot', textContent:'Add images/x-industries.png'}))">
+          </div>          
           <h3>X-Industries / Amazon 2.0</h3>
           <p>
             A full-stack e-commerce style application with product browsing, authentication,
@@ -508,7 +609,11 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
           </div>
         </article>
 
+        <!-- Project Card: Web Games Collection -->
         <article class="project-card">
+          <div class="project-shot">
+            <img src="images/web-games.png" alt="Screenshot of the Web Games Collection project" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'project-shot', textContent:'Add images/web-games.png'}))">
+          </div>
           <h3>Web Games Collection</h3>
           <p>
             A browser-based collection of JavaScript games including Rock Paper Scissors Lizard Spock,
@@ -525,7 +630,11 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
           </div>
         </article>
 
+        <!-- Project Card: Job Tracker -->
         <article class="project-card">
+          <div class="project-shot">
+            <img src="images/job-tracker.png" alt="Screenshot of the Job Tracker project" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'project-shot', textContent:'Add images/job-tracker.png'}))">
+          </div>
           <h3>Job Tracker</h3>
           <p>
             A lightweight application for organizing job applications with CRUD functionality,
@@ -545,6 +654,14 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       </div>
     </section>
 
+    <!--
+    ===============================================================================
+    FEATURE 5C: TECHNICAL SKILLS SECTION
+    -------------------------------------------------------------------------------
+    Organizes Antonio's technical background into readable categories for quick
+    recruiter scanning.
+    ===============================================================================
+    -->
     <section id="skills" class="section-wrap">
       <div class="section-header">
         <h2>Technical Skills</h2>
@@ -566,6 +683,14 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
       </div>
     </section>
 
+    <!--
+    ===============================================================================
+    FEATURE 5D: CONTACT SECTION
+    -------------------------------------------------------------------------------
+    Provides direct ways for recruiters, employers, and networking contacts to
+    reach Antonio or view his professional profiles.
+    ===============================================================================
+    -->
     <section id="contact" class="section-wrap">
       <div class="section-header">
         <h2>Contact</h2>
@@ -595,6 +720,13 @@ CSS3 – styling, layout, spacing, responsiveness, and visual design
     </section>
   </main>
 
+  <!--
+  ===============================================================================
+  FEATURE 7: FOOTER
+  -------------------------------------------------------------------------------
+  Closing attribution area for the portfolio site.
+  ===============================================================================
+  -->
   <footer class="site-footer">
     <div class="container">
       © 2026 Antonio Corona Montes De Oca. Built as a static portfolio site for GitHub Pages.
