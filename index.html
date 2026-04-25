@@ -42,454 +42,9 @@ JavaScript – active navigation highlighting and interactive page behavior
   
   <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
   
-  <style>
-    /*
-    ===============================================================================
-    FEATURE 1: DESIGN TOKENS / THEME VARIABLES
-    -------------------------------------------------------------------------------
-    Centralized color, spacing, width, border, and shadow values used throughout
-    the page for consistent styling.
-    ===============================================================================
-    */
-    :root {
-      --bg: #0f172a;
-      --panel: #111827;
-      --card: #1f2937;
-      --text: #e5e7eb;
-      --muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-2: #22c55e;
-      --border: rgba(255,255,255,0.08);
-      --shadow: 0 18px 40px rgba(0,0,0,0.28);
-      --max: 1120px;
-    }
-
-    /* Global box model reset */
-    * { box-sizing: border-box; }
-
-    /* Enables smooth scrolling for navigation anchor links */
-    html { scroll-behavior: smooth; }
-
-    /*
-    ===============================================================================
-    FEATURE 2: GLOBAL PAGE STYLING
-    -------------------------------------------------------------------------------
-    Establishes overall typography, page background, text color, and line spacing.
-    ===============================================================================
-    */
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-
-      background: linear-gradient(180deg, #0b1120 0%, #111827 100%);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    /* Removes default underline and keeps links inheriting section text color */
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* Shared width constraint for centered content areas */
-    .container {
-      width: min(var(--max), calc(100% - 2rem));
-      margin: 0 auto;
-    }
-
-    /*
-    ===============================================================================
-    FEATURE 3: STICKY NAVIGATION BAR
-    -------------------------------------------------------------------------------
-    Keeps the main navigation visible while scrolling and provides quick anchor
-    links to the portfolio sections.
-    ===============================================================================
-    */
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(15, 23, 42, 0.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 1rem 0;
-    }
-
-    /* Portfolio name displayed on the left side of the navbar */
-    .brand {
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-
-    /* Horizontal navigation links for section jumping */
-    .nav-links {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .nav-links a:hover,
-    .nav-links a:focus-visible {
-      color: var(--text);
-    }
-
-    .nav-link {
-    transition: color 0.2s ease, border-color 0.2s ease;
-    border-bottom: 2px solid transparent;
-    padding-bottom: 4px;
-    }
-
-    .nav-link.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-    }
-
-    /*
-    ===============================================================================
-    FEATURE 4: HERO SECTION + QUICK FACTS PANEL
-    -------------------------------------------------------------------------------
-    The hero introduces Antonio, summarizes his focus, and presents primary calls
-    to action. A side panel highlights quick recruiter-friendly facts.
-    ===============================================================================
-    */
-    .hero {
-      padding: 5rem 0 3.5rem;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 1.5rem;
-      align-items: stretch;
-    }
-
-    /* Shared card-like styling reused across major panels and content cards */
-    .panel,
-    .project-card,
-    .skill-card,
-    .contact-card,
-    .project-shot {
-      background: rgba(17, 24, 39, 0.92);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-    }
-
-    /* Shared padding for hero panels and general section panels */
-    .hero-main,
-    .hero-side,
-    .section {
-      padding: 1.5rem;
-    }
-
-    /* Small badge-like label above the main hero heading */
-    .eyebrow {
-      display: inline-block;
-      margin-bottom: 0.9rem;
-      padding: 0.35rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      color: var(--accent);
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-    }
-
-    /* Shared heading spacing reset */
-    h1, h2, h3 { margin-top: 0; }
-
-    /* Main hero heading styling */
-    h1 {
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      line-height: 1.08;
-      margin-bottom: 0.8rem;
-    }
-
-    /* Supporting paragraph text used in the hero area */
-    .lead {
-      color: var(--muted);
-      font-size: 1.08rem;
-      max-width: 62ch;
-    }
-
-    /* Button row beneath the hero summary */
-    .cta-row {
-      display: flex;
-      gap: 0.9rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-
-    /* Base button styling reused for all call-to-action links */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 0.8rem 1.1rem;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      font-weight: 700;
-      transition: transform 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
-    }
-
-    .btn:hover,
-    .btn:focus-visible {
-      transform: translateY(-2px);
-    }
-
-    /* Primary action button styling */
-    .btn-primary {
-      background: var(--accent);
-      color: #082f49;
-    }
-
-    /* Secondary action button styling */
-    .btn-secondary {
-      border-color: var(--border);
-      color: var(--text);
-      background: rgba(255,255,255,0.03);
-    }
-
-    /* Right-side quick facts list */
-    .stat-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-    .stat {
-      padding: 1rem;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 0.25rem;
-    }
-
-    .stat-value {
-      font-size: 1.05rem;
-      font-weight: 700;
-    }
-
-    /* Adds spacing beneath the main page content before the footer */
-    main {
-      padding-bottom: 4rem;
-    }
-
-    /* Shared top spacing between stacked sections */
-    .section-wrap {
-      margin-top: 1.5rem;
-    }
-
-    /* Shared styling for section introductions */
-    .section-header {
-      margin-bottom: 1rem;
-    }
-
-    .section-header p {
-      color: var(--muted);
-      margin: 0.35rem 0 0;
-    }
-
-    /*
-    ===============================================================================
-    FEATURE 5: GRID-BASED CONTENT LAYOUTS
-    -------------------------------------------------------------------------------
-    Reusable grids for projects, skill cards, and contact cards.
-    ===============================================================================
-    */
-    .projects-grid,
-    .skills-grid,
-    .contact-grid {
-      display: grid;
-      gap: 1rem;
-    }
-
-    .projects-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .skills-grid,
-    .contact-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    /* Shared padding for content cards */
-    .project-card,
-    .skill-card,
-    .contact-card {
-      padding: 1.25rem;
-    }
-
-    /*
-    -------------------------------------------------------------------------------
-    PROJECT CARD HOVER EFFECT
-    -------------------------------------------------------------------------------
-    Adds a subtle lift and stronger shadow when hovering over a project card.
-    This improves interactivity and makes the UI feel more polished and modern.
-    -------------------------------------------------------------------------------
-    */
-    .project-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .project-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 24px 50px rgba(0,0,0,0.35);
-    }
-    
-    /*
-    ===============================================================================
-    FEATURE 6: PROJECT CARD MEDIA PREVIEW
-    -------------------------------------------------------------------------------
-    Each featured project can display a screenshot at the top of its card.
-    A placeholder fallback message is shown if an image has not been added yet.
-    ===============================================================================
-    */
-    .project-shot {
-      margin-bottom: 1rem;
-      overflow: hidden;
-      background: rgba(255,255,255,0.03);
-      aspect-ratio: 16 / 9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 0.95rem;
-      text-align: center;
-    }
-
-    .project-shot img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-
-    /* Smooth zoom animation */
-    transition: transform 0.25s ease;
-    }
-
-    /* Slight zoom when hovering over the image */
-    .project-shot:hover img {
-    transform: scale(1.05);
-    }
-
-    /* Skill/technology tags shown on project cards */
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      margin-top: 0.9rem;
-    }
-
-    .tag {
-      padding: 0.38rem 0.65rem;
-      border-radius: 999px;
-      background: rgba(56, 189, 248, 0.12);
-      color: #bae6fd;
-      font-size: 0.82rem;
-      border: 1px solid rgba(56, 189, 248, 0.2);
-    }
-
-    /* Link rows used inside project cards and contact cards */
-    .project-links,
-    .contact-links {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin-top: 1rem;
-    }
-
-    .mini-link {
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    .mini-link:hover,
-    .mini-link:focus-visible {
-      opacity: 0.85;
-    }
-
-    /* Small informational note below the contact section */
-    .resume-note {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-top: 0.8rem;
-    }
-
-    /*
-    ===============================================================================
-    FEATURE 7: FOOTER
-    -------------------------------------------------------------------------------
-    Simple closing area for attribution and site purpose.
-    ===============================================================================
-    */
-    .site-footer {
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      padding: 1.25rem 0 2.25rem;
-      font-size: 0.95rem;
-    }
-
-    /*
-    ===============================================================================
-    FEATURE 8: RESPONSIVE DESIGN
-    -------------------------------------------------------------------------------
-    Adjusts layout and spacing for tablet and mobile screen sizes.
-    ===============================================================================
-    */
-    @media (max-width: 900px) {
-      .hero-grid,
-      .projects-grid,
-      .skills-grid,
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding-top: 3.5rem;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .nav-links {
-        gap: 0.8rem;
-      }
-
-      .hero-main,
-      .hero-side,
-      .section,
-      .project-card,
-      .skill-card,
-      .contact-card {
-        padding: 1.15rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <!--
   ===============================================================================
@@ -523,7 +78,15 @@ JavaScript – active navigation highlighting and interactive page behavior
       <div class="hero-grid">
         <div class="panel hero-main">
           <span class="eyebrow">Software Developer Portfolio</span>
-          <h1 id="hero-title">Antonio Corona Montes De Oca</h1>
+          <div class="hero-header">
+            <div class="profile-pic">
+              <img src="images/profile.jpg" alt="Antonio Corona Profile Picture">
+            </div>
+
+            <div class="hero-title">
+              <h1>Antonio Corona Montes De Oca</h1>
+            </div>
+          </div>
           <p class="lead">
             Computer Science student graduating in May 2026, focused on software engineering,
             full-stack development, algorithms, operating systems, and database-driven applications.
@@ -538,7 +101,7 @@ JavaScript – active navigation highlighting and interactive page behavior
             <a class="btn btn-primary" href="https://github.com/antonioc-26" target="_blank" rel="noreferrer">GitHub</a>
             <a class="btn btn-secondary" href="https://www.linkedin.com/in/antonio-corona-montes-de-oca/" target="_blank" rel="noreferrer">LinkedIn</a>
             <a class="btn btn-secondary" href="resume/Antonio_Corona_Resume.pdf" target="_blank" rel="noreferrer">View Resume</a>
-            <a class="btn btn-secondary" href="mailto:antoniocmdo26@gmail.com">Email Me</a>
+            <a class="btn btn-secondary" href="#contact">Contact Me</a>
           </div>
         </div>
 
@@ -610,7 +173,9 @@ JavaScript – active navigation highlighting and interactive page behavior
 
       <article class="project-card">
         <div class="project-shot">
-          <img src="images/tennis-site.jpg" alt="Millersville Tennis Club Website Screenshot">
+          <a href="https://millersville-tennis-club.vercel.app/" target="_blank" rel="noreferrer">
+            <img src="images/tennis-site.jpg" alt="Millersville Tennis Club Website Screenshot">
+          </a>
         </div>
 
         <h3>Millersville Tennis Club Website</h3>
@@ -684,7 +249,9 @@ JavaScript – active navigation highlighting and interactive page behavior
 
         <article class="project-card">
           <div class="project-shot">
-            <img src="images/job-market-dashboard.jpg" alt="CS Job Market Dashboard Screenshot">
+            <a href="https://cs-job-market-dashboard-ayhc.vercel.app/" target="_blank" rel="noreferrer">
+              <img src="images/job-market-dashboard.jpg" alt="CS Job Market Dashboard Screenshot">
+            </a>
           </div>
 
           <h3>CS Job Market Dashboard</h3>
@@ -715,7 +282,7 @@ JavaScript – active navigation highlighting and interactive page behavior
         <article class="project-card">
           <div class="project-shot">
             <a href="https://antonioc-26.github.io/Job-Tracker/" target="_blank">
-            <img src="images/job-tracker.jpg" alt="Screenshot of the Job Tracker project" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'project-shot', textContent:'Add images/job-tracker.jpg'}))">
+              <img src="images/job-tracker.jpg" alt="Screenshot of the Job Tracker project" onerror="this.replaceWith(Object.assign(document.createElement('div'), {className:'project-shot', textContent:'Add images/job-tracker.jpg'}))">
             </a>
           </div>
           <h3>Job Tracker</h3>
@@ -816,7 +383,7 @@ JavaScript – active navigation highlighting and interactive page behavior
     -->
     <section id="contact" class="section-wrap">
       <div class="section-header">
-        <h2>Contact</h2>
+        <h2>Contact Me</h2>
         <p>Reach out for entry-level software opportunities, project discussions, or networking.</p>
       </div>
       <div class="contact-grid">
@@ -866,93 +433,6 @@ JavaScript – active navigation highlighting and interactive page behavior
       </div>
     </footer>
 
-  <script>
-    /*
-    ===============================================================================
-    FEATURE 9: ACTIVE NAVIGATION HIGHLIGHTING
-    -------------------------------------------------------------------------------
-    This script updates the navigation bar to highlight the section currently being
-    viewed by the user.
-
-    Behavior:
-    - Uses a checkpoint positioned 40% down the viewport instead of the very top
-        of the page for more natural section detection
-    - Correctly handles smaller sections such as Skills and Contact
-    - Includes a bottom-of-page fallback so the last section can still activate
-        when the user scrolls to the end
-    ===============================================================================
-    */
-
-    /* Select all major sections that have an id attribute */
-    const sections = document.querySelectorAll("section[id]");
-
-    /* Select all navigation links that should receive the active state */
-    const navLinks = document.querySelectorAll(".nav-link");
-
-    /*
-    -------------------------------------------------------------------------------
-    Updates the active navigation link based on scroll position
-    -------------------------------------------------------------------------------
-    A checkpoint is placed at 40% of the viewport height. Whichever section
-    contains that checkpoint becomes the active section.
-
-    This approach works better than checking the very top of the page because:
-    - It feels more natural while scrolling
-    - It handles shorter sections more reliably
-    - It improves activation near the bottom of the page
-    -------------------------------------------------------------------------------
-    */
-    function updateActiveNavLink() {
-        const checkpoint = window.scrollY + window.innerHeight * 0.4;
-        let currentSection = "";
-
-        sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionBottom = sectionTop + sectionHeight;
-
-        if (checkpoint >= sectionTop && checkpoint < sectionBottom) {
-            currentSection = section.getAttribute("id");
-        }
-        });
-
-        /*
-        ---------------------------------------------------------------------------
-        Bottom-of-page fallback
-        ---------------------------------------------------------------------------
-        Ensures that the final section becomes active when the user scrolls near the
-        bottom of the page, even if that section is too short to fully cross the
-        viewport checkpoint.
-        ---------------------------------------------------------------------------
-        */
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
-        currentSection = sections[sections.length - 1].getAttribute("id");
-        }
-
-        /* Remove the active class from all nav links */
-        navLinks.forEach(link => {
-        link.classList.remove("active");
-
-        /* Add the active class only to the matching section link */
-        if (link.getAttribute("href") === `#${currentSection}`) {
-            link.classList.add("active");
-        }
-        });
-    }
-
-    /*
-    -------------------------------------------------------------------------------
-    Event listeners
-    -------------------------------------------------------------------------------
-    Recalculate the active nav state when:
-    - the page scrolls
-    - the page first loads
-    - the browser window is resized
-    -------------------------------------------------------------------------------
-    */
-    window.addEventListener("scroll", updateActiveNavLink);
-    window.addEventListener("load", updateActiveNavLink);
-    window.addEventListener("resize", updateActiveNavLink);
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>
